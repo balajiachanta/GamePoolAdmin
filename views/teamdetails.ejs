@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Match Details Entry Page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/custom.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form action="/teamdetails" method="post">
+        <h2>Please Enter Team Details</h2>
+       
+        <label for="teamname" class="sr-only">Team Name</label>
+        <input type="text" name="name" class="form-control" placeholder="Team Name" required autofocus>
+        <label for="logo" class="sr-only">Logo Details</label>
+        <input type="text" name="logo" class="form-control" placeholder="Logo URL" required>
+        <label for="homecity" class="sr-only">Home City</label>
+        <input type="text" name="homecity" class="form-control" placeholder="Home City" required>
+        <label for="points" class="sr-only">Team Points</label>
+        <input type="text" name="points" class="form-control" placeholder="Points" required>
+        <br/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Enter Details</button>
+      </form>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>

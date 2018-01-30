@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Match Details Entry Page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/custom.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form action="/matchdetails" method="post">
+        <h2>Please Enter Match Details</h2>
+     
+        <label for="gamedetails" class="sr-only">Match Details</label>
+        <input type="text" name="gamedetails" class="form-control" placeholder="Match Details" required autofocus>
+        <label for="location" class="sr-only">Location</label>
+        <input type="text" name="location" class="form-control" placeholder="Location" required>
+        <label for="groundname" class="sr-only">GroundName</label>
+        <input type="text" name="groundname" class="form-control" placeholder="GroundName" required>
+       
+        <select name="teamone" class="form-control">
+          <option value="">Choose Team One</option>
+          <% for(var i=0; i<teams.length; i++) {%>
+          <option value=<%= teams[i].teamid %>><%= teams[i].name %></option>
+          <% } %>
+      </select>
+       
+      <select name="teamtwo" class="form-control">
+        <option value="">Choose Team Two</option>
+        <% for(var i=0; i<teams.length; i++) {%>
+        <option value=<%= teams[i].teamid %>><%= teams[i].name %></option>
+        <% } %>
+    </select>
+
+        <label for="matchdttm" class="sr-only">MatchDate</label>
+        <input type="text" name="matchdttm" class="form-control" placeholder="MatchDate" required>
+        <br/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Enter Details</button>
+      </form>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>
