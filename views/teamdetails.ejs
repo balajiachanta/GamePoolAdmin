@@ -3,40 +3,98 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
-
-    <title>Match Details Entry Page</title>
-
-    <!-- Bootstrap core CSS -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GamePool Admin Page</title>
+    <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="/css/custom.css" rel="stylesheet">
+    <style>
+      .navbar{
+        margin-bottom:0;
+        border-radius:0;
+      }
+    </style>
   </head>
 
   <body>
 
     <div class="container">
+        <div class="jumbotron text-left">
+            <div class="container">
+              <h2>Welcome To GamePool Admin</h2>
+            </div>
+        </div>
+        <p class="text-right"><a href="/" class="btn btn-success" role="button">Home</a></p>
+        <%- messages('teamdetails', locals) %>
+        <div id="messages">
+            <% Object.keys(messages).forEach(function (type) { %>
+              <!-- <% messages[type].forEach(function (message) { %> -->
+                <div class="alert alert-<%= type %>"><%= message %></div>
+              <!-- <% }) %> -->
+            <% }) %>
+            <!-- To show error on the page-->
+            <% if(locals.errors) {%>
+              <% for (const error of errors){ %>
+                <div class="alert alert-danger"><%= error.msg %></div>
+                
+                <% } %>
+              
+            <%}%>
+            </div>
 
-      <form action="/teamdetails" method="post">
-        <h2>Please Enter Team Details</h2>
-       
-        <label for="teamname" class="sr-only">Team Name</label>
-        <input type="text" name="name" class="form-control" placeholder="Team Name" required autofocus>
-        <label for="logo" class="sr-only">Logo Details</label>
-        <input type="text" name="logo" class="form-control" placeholder="Logo URL" required>
-        <label for="homecity" class="sr-only">Home City</label>
-        <input type="text" name="homecity" class="form-control" placeholder="Home City" required>
-        <label for="points" class="sr-only">Team Points</label>
-        <input type="text" name="points" class="form-control" placeholder="Points" required>
-        <br/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Enter Details</button>
-      </form>
+            
+        <div class="row">
+            <div class="col-md-8">
+               
+              <form action="/team/details" method="post">
+                <h2 class="page-header">Please Enter Match Details</h2>
+                <div class="form-group">
+                    <label>Team Name</label>
+                    <input type="text" class="form-control" name="name" placeholder="Team Name" required autofocus>
+                  </div>
 
+                  <div class="form-group">
+                      <label>Logo Details</label>
+                      <input type="text" name="logo" class="form-control" placeholder="Logo URL" required>
+                  </div>
+
+                  <div class="form-group">
+                      <label>Home City</label>
+                      <input type="text" name="homecity" class="form-control" placeholder="Home City" required>
+                  </div>
+
+                  <div class="form-group">
+                      <label>Team Points</label>
+                      <input type="text" name="points" class="form-control" placeholder="Points" required>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">Enter Details</button>
+              </form>
+            </div>
+            <div class="col-md-4">
+               
+                <form action="/update/teampoints" method="post">
+                  <h2 class="page-header">Update Team Points</h2>
+                  <div class="form-group">
+                      <label>Choose Team Two</label>
+                      <select name="chooseteam" class="form-control" required>
+                        <option value="">Choose Team</option>
+                        <% for(var i=0; i<teams.length; i++) {%>
+                        <option value=<%= teams[i].teamid %>><%= teams[i].name %></option>
+                        <% } %>
+                      </select>
+                   </div>
+                 
+                   <div class="form-group">
+                      <label>EnterPoints</label>
+                      <input type="text" name="points" class="form-control" placeholder="Enter Points" required>
+                   </div>
+                   <button type="submit" class="btn btn-primary">Update Team Points</button>
+                </form>
+            </div>
+        </div> 
+        
     </div> <!-- /container -->
-
+   
   </body>
 </html>

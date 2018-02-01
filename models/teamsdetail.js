@@ -8,9 +8,9 @@ autoIncrement.initialize(mongoose.connection);
 // database schema
 var teamSchema = new Schema({
   name: { type: String, required: true },
-  logo: { type: String},
-  homecity: { type: String },
-  points: { type: Number }
+  logo: { type: String, required: true },
+  homecity: { type: String, required: true  },
+  points: { type: Number, required: true  }
 }, {
   collection: 'teamdetails'
 });

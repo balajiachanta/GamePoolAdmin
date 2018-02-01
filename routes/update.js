@@ -16,21 +16,53 @@ router.get('/teampoints', function(req, res, next) {
 
 router.post('/teampoints', function(request, response) {
   
+  console.log('testing chorequest.body.chooseteam '+request.body.chooseteam)
+request.checkBody('chooseteam',"Please select a team to update points").notEmpty()
+// Get Errors
+let errors = request.validationErrors();
+
+if(errors){
+
+  TeamDetail.find({}, function(err, teams) {
+    if (err) {
+      throw err;
+    }else{
+      response.render('teamdetails', {
+        errors:errors,
+        teams:teams
+      });
+    }
+  });
+
+  
+}else{
+
   TeamDetail.findById(request.body.chooseteam,(err,teamdetail) => {
 
     if (err) {
-      res.status(500).send(err);
+      response.status(500).send(err);
     } else {
       
       teamdetail.points=request.body.points
       teamdetail.save((error, teampoints) => {
           if (error)
             response.status(500).send('TeamDetail updating points Internal Server Error 500\n' + error);
-          else
-            response.status(201).send(teampoints); 
+          else{
+            
+            TeamDetail.find({}, function(err, teams) {
+              if (err) {
+                throw err;
+              }else{
+                request.flash('success','Points Updated')
+                request.param('teams', teams)
+                response.redirect(301,'/team/details');
+              }
+            });
+          }
       });
     }
   });
+}
 });
 
 module.exports = router;

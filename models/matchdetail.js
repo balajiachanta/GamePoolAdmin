@@ -9,13 +9,13 @@ autoIncrement.initialize(mongoose.connection);
 var matchSchema = new Schema({
   
   gamedetails: { type: String, required: true },
-  location: { type: String},
-  groundname: { type: String },
-  teamone: {type: Number },
-  teamtwo: { type: Number },
+  location: { type: String, required: true },
+  groundname: { type: String, required: true  },
+  teamone: {type: Number, required: true  },
+  teamtwo: { type: Number, required: true  },
   createdttm: { type: Date },
   updateddttm: { type: Date },
-  matchdttm: { type:String } // dd-mm-yyyy|1-24 hour format
+  matchdttm: { type:String, required: true  } // dd-mm-yyyy|1-24 hour format
 }, {
   collection: 'matchdetails' // save user data to collection named 'users'
 });
