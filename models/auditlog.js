@@ -6,29 +6,24 @@ var Schema = mongoose.Schema;
 autoIncrement.initialize(mongoose.connection);
 
 // database schema
-var matchSchema = new Schema({
-  
-  gamedetails: { type: String, required: true },
-  location: { type: String, required: true },
-  groundname: { type: String, required: true  },
-  teamone: {type: Number, required: true  },
-  teamtwo: { type: Number, required: true  },
+var auditSchema = new Schema({
+  auditinfo: { type: String, required: true },
+  document: { type: String, required: true },
   createduser: { type: String },
   createddttm: { type: Date },
-  updateddttm: { type: Date },
-  matchdttm: { type:String, required: true  } // dd-mm-yyyy|1-24 hour format
+  updateddttm: { type: Date }
 }, {
-  collection: 'matchdetails' // save user data to collection named 'users'
+  collection: 'auditlogs'
 });
 
-matchSchema.plugin(autoIncrement.plugin, {
-  model: 'MatchDetail',
-  field: 'matchid',
+auditSchema.plugin(autoIncrement.plugin, {
+  model: 'AuditLog',
+  field: 'auditid',
   startAt: 1,
   incrementBy: 1
 });
-matchSchema.plugin(autoIncrement.plugin, {
-  model: 'MatchDetail',
+auditSchema.plugin(autoIncrement.plugin, {
+  model: 'AuditLog',
   field: '_id',
   startAt: 1,
   incrementBy: 1
@@ -36,9 +31,9 @@ matchSchema.plugin(autoIncrement.plugin, {
 
 // mongoose middlewares
 // .pre is called before data is saved to db
-matchSchema.pre('save', function(next) {
+auditSchema.pre('save', function(next) {
     var currentDate = new Date(); // get current date
-    
+
     // if data contains createdDate already
     if (this.createddttm)
       this.updateddttm = currentDate; // set updatedDate to currentDate
@@ -49,4 +44,4 @@ matchSchema.pre('save', function(next) {
 });
 
 
-module.exports = mongoose.model('MatchDetail', matchSchema); // export this user model
+module.exports = mongoose.model('AuditLog', auditSchema); // export this user model

@@ -30,6 +30,7 @@ router.post('/details', function(request, response) {
     });
   }else{
     var teamdetail = new TeamDetail(request.body); // pass the request body to TeamDetail model, this will generate a new user data
+    teamdetail.createduser = 'balajiachanta';
     teamdetail.save(function(error, savedUser) {
         if (error){
           response.status(500).send('TeamDetail Internal Server Error 500\n' + error);

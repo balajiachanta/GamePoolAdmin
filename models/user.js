@@ -6,26 +6,31 @@ var Schema = mongoose.Schema;
 autoIncrement.initialize(mongoose.connection);
 
 // database schema
-var teamSchema = new Schema({
-  name: { type: String, required: true },
-  logo: { type: String, required: true },
-  homecity: { type: String, required: true  },
-  points: { type: Number, required: true  },
+var userSchema = new Schema({
+  email: { type: String, required: true },
+  password: { type: String, required: true },
+  verifiedstatus: { type: Number, required: true  },
+  status: { type: Number, required: true  },
+  isactive: { type: Boolean, required: true  },
+  score: { type: Number },
+  bonusleft: { type: Number },
+  isadmin: { type: Boolean, required: true  },
   createduser: { type: String },
   createddttm: { type: Date },
-  updateddttm: { type: Date }
+  updateddttm: { type: Date },
+  latestlogindttm: { type: Date }
 }, {
-  collection: 'teamdetails'
+  collection: 'users'
 });
 
-teamSchema.plugin(autoIncrement.plugin, {
-  model: 'TeamDetail',
-  field: 'teamid',
+userSchema.plugin(autoIncrement.plugin, {
+  model: 'User',
+  field: 'userid',
   startAt: 1,
   incrementBy: 1
 });
-teamSchema.plugin(autoIncrement.plugin, {
-  model: 'TeamDetail',
+userSchema.plugin(autoIncrement.plugin, {
+  model: 'User',
   field: '_id',
   startAt: 1,
   incrementBy: 1
@@ -33,7 +38,7 @@ teamSchema.plugin(autoIncrement.plugin, {
 
 // mongoose middlewares
 // .pre is called before data is saved to db
-teamSchema.pre('save', function(next) {
+userSchema.pre('save', function(next) {
   var currentDate = new Date(); // get current date
 
   // if data contains createdDate already
@@ -46,4 +51,4 @@ teamSchema.pre('save', function(next) {
 });
 
 
-module.exports = mongoose.model('TeamDetail', teamSchema); 
+module.exports = mongoose.model('User', userSchema); 

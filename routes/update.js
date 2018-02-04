@@ -16,7 +16,7 @@ router.get('/teampoints', function(req, res, next) {
 
 router.post('/teampoints', function(request, response) {
   
-  console.log('testing chorequest.body.chooseteam '+request.body.chooseteam)
+
 request.checkBody('chooseteam',"Please select a team to update points").notEmpty()
 // Get Errors
 let errors = request.validationErrors();
