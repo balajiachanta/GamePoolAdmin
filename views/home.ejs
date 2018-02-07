@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <% include ././partials/adminhead %>
+  </head>
+
+  <body>
+    <header>
+    <div class="container">
+        <% include ././partials/adminjumbo %>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+          <% include ././partials/adminnav %>
+      <p class="cricimg"> 
+        <img src="./images/cickcrop.gif" class="img-responsive">
+      </p> 
+</main>
+<footer>
+<% include ././partials/adminfooter %>
+</footer>
+    </div>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function($) {
+      $("#homeid").addClass("active");
+        
+    });
+    </script>
+</html>

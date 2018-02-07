@@ -4,13 +4,48 @@ var router = express.Router();
 var MatchDetail = require('../models/matchdetail');
 var TeamDetail = require('../models/teamsdetail');
 
+
+//read message query parmeter  /details?message=tst - req.query.message
+// read as request param /details/:id - req.params.id
+
+
 router.get('/details', function(req, res, next) {
-  // get all the users
-  TeamDetail.find({}, function(err, teams) {
-    if (err) throw err;
-    res.render('matchdetails',{teams: teams});
+  var teams = {};
+  var matches={};
+  var message = req.query.message;
+
+      // get all the matches which are over
+    MatchDetail.find({}, function(err, matches) {
+      if (err){ 
+        throw err;
+      }else{
+     // this.matches = matches; 
+       // get all the teams
+    TeamDetail.find({}, function(err, teams) {
+      if (err){ throw err}else{
+          req.flash('success',message);
+          res.render('matchdetails',{teams: teams, matches:matches});
+      }
+    }); 
+    } 
+    });
+
+ 
+});
+
+
+router.post('/update', function(req, res) {
+  var id = req.body.matchid;
+  var ismatchover = req.body.ismatchover;
+  MatchDetail.findOneAndUpdate({_id:id},{$set: {ismatchover:ismatchover,iswinnerupdated:false,updateddttm:new Date()}}, {'upsert':true},function(err, matche) {
+    if (err) {throw err ;}
+    else{
+    res.redirect('/match/details?message=Match details updated');
+  }
   });
+
   
+ 
 });
 
 
@@ -25,23 +60,28 @@ router.post('/details', function(request, response) {
 
     TeamDetail.find({}, function(err, teams) {
       if (err){throw err;}else{
-        request.flash('success',"Match Detail&Schedule Added")
+        
         response.render('matchdetails',{errors:errors,teams: teams});
        }
     });
   }else{
-  var matchdetail = new MatchDetail(request.body); // pass the request body to MatchDetail model, this will generate a new user data
+  var matchdetail = new MatchDetail(request.body); 
+  matchdetail.ismatchover = false;
   matchdetail.save(function(error, savedUser) {
       if (error){
         response.status(500).send('MatchDetail Internal Server Error 500\n' + error);
       }
       else{
-        TeamDetail.find({}, function(err, teams) {
-          if (err){throw err;}else{
-            request.flash('success',"Match Detail&Schedule Added")
-            response.render('matchdetails',{teams: teams});
-           }
-        });
+        response.redirect('/match/details?message=Match Details & Schedule Added');
+
+        // TeamDetail.find({}, function(err, teams) {
+        //   if (err){throw err;}else{
+        //     request.flash('success',"Match Details & Schedule Added")
+        //     response.render('matchdetails',{teams: teams});
+        //    }
+        // });
+
+
       }
   });
 }

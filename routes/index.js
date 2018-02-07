@@ -6,7 +6,7 @@ var TeamDetail = require('../models/teamsdetail');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'GamePool Admin' });
+  res.render('home', { title: 'GamePool Admin' });
 });
 
 module.exports = router;

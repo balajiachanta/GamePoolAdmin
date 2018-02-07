@@ -9,12 +9,12 @@ autoIncrement.initialize(mongoose.connection);
 var winnerSchema = new Schema({
   matchid: {type: Number, required: true  },
   teamid: { type: Number, required: true  },
-  userids: { type: String, required: true },
+  userids: { type: String },
   winnerscore: {type: Number, required: true },
   tosteamid: { type: Number, required: true },
   momplayerid: {type: Number, required: true },
   hsplayerid: { type: Number, required: true  },
-  islotdone: { type: Boolean, required: true },
+  islotdone: { type: Boolean},
   createduser: { type: String },
   createddttm: { type: Date },
   updateddttm: { type: Date }

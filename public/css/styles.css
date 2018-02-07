@@ -1,3 +1,93 @@
 .table-row{
     cursor:pointer;
     }
+
+@media screen and (min-width: 768px)
+{
+    .container .jumbotron, .container-fluid .jumbotron {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+}
+}
+
+
+.bgcol{
+    background-color: #ffa500;
+    /* border: solid; */
+}
+
+.targetimg{
+    /* background-image: url(); */
+    background-color: #34353130;
+    height: 500px;
+    background-repeat: no-repeat;
+    margin-top: 10px;
+    border: solid;
+    border-style: ridge;
+    border-radius: 6px; 
+}
+
+
+
+/* //medium+ screen sizes */
+@media (min-width:992px) {
+    .desktop-only {
+        display:block !important;
+    }
+
+    .divstyle {
+        background-color: #ffa500;
+        height: 200px;
+        widows: 45px;
+    }
+
+    .cricimg {
+        margin-left: 90px;
+        padding-top:20px;
+    }
+}
+ 
+/* //small screen sizes */
+@media (max-width: 991px) {
+    .mobile-only {
+        display:block !important;
+    }
+ 
+    .desktop-only {
+        display:none !important;
+    }
+
+    .divstyle {
+        display:none;
+    }
+
+    .cricimg {
+        margin-left: 30px;
+        padding-top:20px;
+    }
+}
+
+@media only screen and (max-width: 1023px) {
+
+}
+
+
+#gamble{
+    background-image: url('/images/gamble.jpg');
+    height: 100px;
+    padding-top:5px; 
+}
+
+.nav-tabs a{
+    color: #19190e;
+    text-decoration: blink;
+    background-color: #e1edf6;
+    border-radius: 6px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+.gfont{
+    font-family: 'Press Start 2P', cursive; 
+    font-size: 150%;   
+}

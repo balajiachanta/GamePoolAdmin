@@ -17,8 +17,9 @@ let db = mongoose.connection;
 var index = require('./routes/index');
 var matchroute = require('./routes/matchdetailroute');
 var teamroute = require('./routes/teamdetailroute');
-
 var update = require('./routes/update');
+var playerroute = require('./routes/playerroute');
+var winnerroute = require('./routes/winnerroute');
 
 var app = express();
 
@@ -76,10 +77,12 @@ app.use(expressValidator({
   }
 }));
 
-app.use('/', index);
+app.use('/home', index);
 app.use('/match', matchroute);
 app.use('/team', teamroute);
 app.use('/update', update);
+app.use('/player', playerroute);
+app.use('/winner', winnerroute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

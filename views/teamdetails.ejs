@@ -1,53 +1,40 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GamePool Admin Page</title>
-    <!-- Bootstrap -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      .navbar{
-        margin-bottom:0;
-        border-radius:0;
-      }
-    </style>
-  </head>
-
+    <head>
+        <% include ././partials/adminhead %>
+    </head>
   <body>
-
-    <div class="container">
-        <div class="jumbotron text-left">
-            <div class="container">
-              <h2>Welcome To GamePool Admin</h2>
-            </div>
-        </div>
-        <p class="text-right"><a href="/" class="btn btn-success" role="button">Home</a></p>
-        <%- messages('teamdetails', locals) %>
-        <div id="messages">
-            <% Object.keys(messages).forEach(function (type) { %>
-              <!-- <% messages[type].forEach(function (message) { %> -->
-                <div class="alert alert-<%= type %>"><%= message %></div>
-              <!-- <% }) %> -->
-            <% }) %>
-            <!-- To show error on the page-->
-            <% if(locals.errors) {%>
-              <% for (const error of errors){ %>
-                <div class="alert alert-danger"><%= error.msg %></div>
+      <header>
+          <div class="container">
+              <% include ././partials/adminjumbo %>
+          </div>
+      </header>
+      <main>
+        <div class="container">  
+          <% include ././partials/adminnav %>
+       
+          <%- messages('teamdetails', locals) %>
+          <div id="messages">
+              <% Object.keys(messages).forEach(function (type) { %>
+                <!-- <% messages[type].forEach(function (message) { %> -->
+                  <br/>
+                  <div class="alert alert-<%= type %>"><%= message %></div>
+                <!-- <% }) %> -->
+              <% }) %>
+              <!-- To show error on the page-->
+              <% if(locals.errors) {%>
+                <% for (const error of errors){ %>
+                  <div class="alert alert-danger"><%= error.msg %></div>
+                  
+                  <% } %>
                 
-                <% } %>
-              
-            <%}%>
-            </div>
-
-            
-        <div class="row">
+              <%}%>
+          </div>      
+          <div class="row">
             <div class="col-md-8">
                
               <form action="/team/details" method="post">
-                <h2 class="page-header">Please Enter Match Details</h2>
+                <h2 class="page-header">Enter Team Details</h2>
                 <div class="form-group">
                     <label>Team Name</label>
                     <input type="text" class="form-control" name="name" placeholder="Team Name" required autofocus>
@@ -72,13 +59,12 @@
               </form>
             </div>
             <div class="col-md-4">
-               
-                <form action="/update/teampoints" method="post">
+              <form action="/update/teampoints" method="post">
                   <h2 class="page-header">Update Team Points</h2>
                   <div class="form-group">
-                      <label>Choose Team Two</label>
+                      <label>Choose Team</label>
                       <select name="chooseteam" class="form-control" required>
-                        <option value="">Choose Team</option>
+                        
                         <% for(var i=0; i<teams.length; i++) {%>
                         <option value=<%= teams[i].teamid %>><%= teams[i].name %></option>
                         <% } %>
@@ -91,10 +77,21 @@
                    </div>
                    <button type="submit" class="btn btn-primary">Update Team Points</button>
                 </form>
-            </div>
-        </div> 
+             </div>
+            </div> 
         
-    </div> <!-- /container -->
-   
+        </div> <!-- /container -->
+      </main>
+    <footer>
+      <% include ././partials/adminfooter %>
+    </footer>
   </body>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function($) {
+      $("#teamid").addClass("active");
+        
+    });
+  </script>
 </html>

@@ -13,6 +13,8 @@ var matchSchema = new Schema({
   groundname: { type: String, required: true  },
   teamone: {type: Number, required: true  },
   teamtwo: { type: Number, required: true  },
+  ismatchover: { type:Number,required: true , index:true},
+  iswinnerupdated: { type: Boolean},
   createduser: { type: String },
   createddttm: { type: Date },
   updateddttm: { type: Date },
@@ -37,6 +39,7 @@ matchSchema.plugin(autoIncrement.plugin, {
 // mongoose middlewares
 // .pre is called before data is saved to db
 matchSchema.pre('save', function(next) {
+  
     var currentDate = new Date(); // get current date
     
     // if data contains createdDate already
