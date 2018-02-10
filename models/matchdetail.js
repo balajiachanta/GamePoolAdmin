@@ -15,9 +15,12 @@ var matchSchema = new Schema({
   teamtwo: { type: Number, required: true  },
   ismatchover: { type:Number,required: true , index:true},
   iswinnerupdated: { type: Boolean},
+  isdetermined: { type: Boolean},
+  lock: { type: Boolean},
   createduser: { type: String },
   createddttm: { type: Date },
   updateddttm: { type: Date },
+  userids: { type: String },
   matchdttm: { type:String, required: true  } // dd-mm-yyyy|1-24 hour format
 }, {
   collection: 'matchdetails' // save user data to collection named 'users'

@@ -11,12 +11,15 @@ router.get('/details', function(req, res, next) {
   var matches={};
   var players={};
   var message = req.query.message;  
+
+  
   // get all the matches
 MatchDetail.find({'ismatchover':0,'iswinnerupdated':false}, function(err, matches) {
   if (err){ 
     throw err;
   }else{
   this.matches = matches;
+  
 
   if(matches.length >0 ){
 
@@ -47,7 +50,7 @@ MatchDetail.find({'ismatchover':0,'iswinnerupdated':false}, function(err, matche
               throw err;
             }else{
             this.players = players;
-            req.flash('success',message);
+            req.flash('success',this.message);
             res.render('winnerdetails',{teams: this.teams, matches : this.matches, players : this.players});
             }
 
@@ -58,7 +61,7 @@ MatchDetail.find({'ismatchover':0,'iswinnerupdated':false}, function(err, matche
       });
   
   }else{
-    
+    req.flash('success',message);
     res.render('winnerdetails',{teams: {}, matches : this.matches, players : {}});
   }
 }  
@@ -79,7 +82,11 @@ router.post('/details', function(request, response) {
        }
     });
   }else{
-  var winnerdetail = new WinnerModel(request.body); // pass the request body to MatchDetail model, this will generate a new user data
+  var winnerdetail = new WinnerModel(request.body);
+
+  winnerdetail.islotdone = false;
+  winnerdetail.iswinnerupdated = true;
+
   winnerdetail.save(function(error, savedUser) {
       if (error){
         response.status(500).send('winnerdetail Internal Server Error 500\n' + error);

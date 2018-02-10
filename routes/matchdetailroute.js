@@ -14,23 +14,21 @@ router.get('/details', function(req, res, next) {
   var matches={};
   var message = req.query.message;
 
-      // get all the matches which are over
-    MatchDetail.find({}, function(err, matches) {
+      // get all the matches which are not over
+    MatchDetail.find({'ismatchover':!0}, function(err, matches) {
       if (err){ 
         throw err;
       }else{
      // this.matches = matches; 
        // get all the teams
-    TeamDetail.find({}, function(err, teams) {
-      if (err){ throw err}else{
-          req.flash('success',message);
-          res.render('matchdetails',{teams: teams, matches:matches});
-      }
-    }); 
-    } 
+        TeamDetail.find({}, function(err, teams) {
+          if (err){ throw err}else{
+              req.flash('success',message);
+              res.render('matchdetails',{teams: teams, matches:matches});
+          }
+        }); 
+      } 
     });
-
- 
 });
 
 
@@ -43,9 +41,6 @@ router.post('/update', function(req, res) {
     res.redirect('/match/details?message=Match details updated');
   }
   });
-
-  
- 
 });
 
 
@@ -72,7 +67,7 @@ router.post('/details', function(request, response) {
         response.status(500).send('MatchDetail Internal Server Error 500\n' + error);
       }
       else{
-        response.redirect('/match/details?message=Match Details & Schedule Added');
+        response.redirect('/match/details?message=Match Details Added');
 
         // TeamDetail.find({}, function(err, teams) {
         //   if (err){throw err;}else{

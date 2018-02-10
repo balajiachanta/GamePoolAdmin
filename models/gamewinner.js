@@ -15,6 +15,8 @@ var winnerSchema = new Schema({
   momplayerid: {type: Number, required: true },
   hsplayerid: { type: Number, required: true  },
   islotdone: { type: Boolean},
+  iswinnerupdated: { type: Boolean},
+  isdetermined: { type: Boolean},
   createduser: { type: String },
   createddttm: { type: Date },
   updateddttm: { type: Date }
@@ -48,6 +50,8 @@ winnerSchema.pre('save', function(next) {
 
     next();
 });
+
+
 
 
 module.exports = mongoose.model('GameWinner', winnerSchema); // export this user model

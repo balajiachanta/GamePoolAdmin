@@ -20,6 +20,8 @@ var teamroute = require('./routes/teamdetailroute');
 var update = require('./routes/update');
 var playerroute = require('./routes/playerroute');
 var winnerroute = require('./routes/winnerroute');
+var scheduleroute = require('./routes/scheduleroute');
+var userroute = require('./routes/usersroute');
 
 var app = express();
 
@@ -83,6 +85,8 @@ app.use('/team', teamroute);
 app.use('/update', update);
 app.use('/player', playerroute);
 app.use('/winner', winnerroute);
+app.use('/schedule', scheduleroute);
+app.use('/user', userroute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

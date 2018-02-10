@@ -7,12 +7,13 @@ autoIncrement.initialize(mongoose.connection);
 
 // database schema
 var userSchema = new Schema({
+  
   email: { type: String, required: true },
   password: { type: String, required: true },
   verifiedstatus: { type: Number, required: true  },
   status: { type: Number, required: true  },
   isactive: { type: Boolean, required: true  },
-  score: { type: Number },
+  score: { type: Number,index:true,required:true },
   bonusleft: { type: Number },
   isadmin: { type: Boolean, required: true  },
   createduser: { type: String },
