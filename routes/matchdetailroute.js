@@ -10,6 +10,10 @@ var TeamDetail = require('../models/teamsdetail');
 
 
 router.get('/details', function(req, res, next) {
+  if(!req.user){
+    res.redirect('/');
+  }
+
   var teams = {};
   var matches={};
   var message = req.query.message;

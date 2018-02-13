@@ -8,12 +8,14 @@ var mongoose= require('mongoose');
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
+const passport = require('passport');
+const dbconfig = require('./config/database');
 
 
-
-mongoose.connect('mongodb://localhost/gamepool');
+mongoose.connect(dbconfig.database);
 let db = mongoose.connection;
 
+var login = require('./routes/login');
 var index = require('./routes/index');
 var matchroute = require('./routes/matchdetailroute');
 var teamroute = require('./routes/teamdetailroute');
@@ -22,6 +24,7 @@ var playerroute = require('./routes/playerroute');
 var winnerroute = require('./routes/winnerroute');
 var scheduleroute = require('./routes/scheduleroute');
 var userroute = require('./routes/usersroute');
+var customerroute = require('./routes/customer/customerindex');
 
 var app = express();
 
@@ -79,6 +82,19 @@ app.use(expressValidator({
   }
 }));
 
+//passport middleware
+
+require('./config/passport')(passport);
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('*', function(req, res, next){
+  
+  res.locals.user = req.user || null;
+  next();
+});
+
+app.use('/', login);
 app.use('/home', index);
 app.use('/match', matchroute);
 app.use('/team', teamroute);
@@ -87,6 +103,7 @@ app.use('/player', playerroute);
 app.use('/winner', winnerroute);
 app.use('/schedule', scheduleroute);
 app.use('/user', userroute);
+app.use('/customer',customerroute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

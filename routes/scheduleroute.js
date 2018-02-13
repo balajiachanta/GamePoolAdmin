@@ -11,6 +11,9 @@ var User = require('../models/user');
 const determine = require('../service/compute');
 
 router.get('/details', function(req, res, next) {
+  if(!req.user){
+    res.redirect('/');
+  }
 
     var query = MatchDetail.find();
    

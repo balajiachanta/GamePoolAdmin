@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <% include ././../partials/customer/head %>  
+  </head>
+<style>
+
+.imgteams{
+    
+      padding: 4px;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 0.7px solid #8e6868;
+    border-radius: 4px;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 70%;
+    height: auto;
+}
+.borderrt{
+  border-right:2px solid rgb(66, 47, 83);
+}
+
+.check
+{
+    opacity:0.5;
+	color:rgb(87, 31, 133);
+}
+
+
+
+</style>
+  <body>
+    <header>
+    <div class="container">
+        
+      </div>
+    </header>
+    <main>
+        <% teamfind= function(teams,teamid) {
+          console.log(teams);
+          for(i =0 ;i<teams.length;i++){
+              if(teams[i].id == teamid){
+                  return teams[i].logo;
+              }
+          }
+        }
+        %>
+      <div class="container">
+         
+          <div class="table-responsive tableStyle">
+              <table id="" class="table table-condensed table-hover table-bordered table-responsive gfont" cellspacing="0">
+                
+                  <tr>
+                    <th>#</th>
+                    <th><p class='text-center'>Match Details</p></th>
+                    <th>Time</th>
+                 
+                    
+                  </tr>
+                
+              <% for(var i=1; i<matches.length; i++) {%>
+                    
+                  <tr data-toggle="collapse" data-target="#a1<%=i%>" class="accordion-toggle" style="cursor:pointer">
+                    <td><%= matches[i].matchid %></td>
+                    <td><%= matches[i].gamedetails %></td>
+                    <td><%= matches[i].matchdttm %></td>
+                  </tr>
+                  <tr>
+                   
+                      <td colspan="3" style="background-color: transparent">
+                        <div class="collapse" id="a1<%=i%>" >
+                         
+                         
+                              <div class="row">
+                                  <div class="col-xs-2 col-md-4 center">
+                                      <p class ="text-center"> Toss Prediction <br/>
+                                    (Choose 1 of 2 Teams) </p>
+                                    </div>
+                                    <div class="col-xs-2 col-md-4 center">
+                                       <p class ="text-center"> Win Prediction <br/>
+                                        (Choose 1 of 2 Teams)</p>
+                                        </div>
+                                    <div class="col-xs-2 col-md-4 center">
+                                        <p class ="text-center"> Total Score Guess </p>
+                                    </div>
+                                </div>
+
+                              <div class="row">
+                                <form action="/customer" method="post">
+                                <input type="hidden" name="matchid" value="<%= matches[i].matchid %>">
+
+                                  <div class="col-xs-2 col-md-2 box">
+                                      <img src="./../images/<%= matches[i].teamonelogo%>" class="imgteams img-responsive img-thumbnail toss-check">
+                                      <input type="radio" name="tossselection" id="tossselection" value="<%= matches[i].teamone %>" class="hidden" autocomplete="off">
+                                 </div>
+                                  <div class="col-xs-2 col-md-2 box borderrt">
+                                      <img src="./../images/<%= matches[i].teamtwologo%>" class="imgteams img-responsive img-thumbnail toss-check">
+                                      <input type="radio" name="tossselection" id="tossselection" value="<%= matches[i].teamtwo %>" class="hidden" autocomplete="off">
+                                  </div>
+                                
+                                  <div class="col-xs-2 col-md-2 box">
+                                      <img src="./../images/<%= matches[i].teamonelogo%>" class="imgteams img-responsive img-thumbnail win-check">
+                                      <input type="radio" name="winselection" id="winselection" value="<%= matches[i].teamone %>" class="hidden" autocomplete="off">
+                                 </div>
+                                  <div class="col-xs-2 col-md-2 box borderrt">
+                                      <img src="./../images/<%= matches[i].teamtwologo%>" class="imgteams img-responsive img-thumbnail win-check">
+                                      <input type="radio" name="winselection" id="winselection" value="<%= matches[i].teamtwo %>" class="hidden" autocomplete="off">
+                                  </div>
+                                  <div class="col-xs-2 col-md-2 box">
+                                    
+                                  </div>
+                                  <div class="col-xs-2 col-md-2 box">
+                                    <input type="submit" value="submit" class='btn btn-success'/>
+                                  </div>
+                                  
+                                </form>
+                                </div>
+     
+                        </div>
+                      </td>
+                   
+                  </tr>
+                
+              
+                <%}%>
+              </table>
+            </div>
+        </div>
+         
+</main>
+<footer>
+    <% include ./../partials/adminfooter %>
+</footer>
+    </div>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function($) {
+      $("#homeid").addClass("active");
+      $('.toss-check').click(function(e) {
+        $('.toss-check').not(this).removeClass('check')
+    		.siblings('input').prop('checked',false);
+    	  $(this).addClass('check')
+            .siblings('input').prop('checked',true);
+      });
+
+      $('.win-check').click(function(e) {
+        $('.win-check').not(this).removeClass('check')
+    		.siblings('input').prop('checked',false);
+    	  $(this).addClass('check')
+            .siblings('input').prop('checked',true);
+      });
+
+    });
+
+    </script>
+</html>

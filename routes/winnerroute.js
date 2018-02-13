@@ -15,6 +15,10 @@ router.get('/details', function(req, res, next) {
   
   // get all the matches
 MatchDetail.find({'ismatchover':0,'iswinnerupdated':false}, function(err, matches) {
+  if(!req.user){
+    res.redirect('/');
+  }
+  
   if (err){ 
     throw err;
   }else{

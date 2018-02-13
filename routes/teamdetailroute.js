@@ -5,6 +5,9 @@ var TeamDetail = require('../models/teamsdetail');
 
 
 router.get('/details', function(req, res, next) {
+  if(!req.user){
+    res.redirect('/');
+  }
   TeamDetail.find({}, function(err, teams) {
     if (err) "No results";
     res.render('teamdetails',{teams: teams});

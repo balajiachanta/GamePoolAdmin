@@ -6,6 +6,9 @@ var TeamDetail = require('../models/teamsdetail');
 
 
 router.get('/teampoints', function(req, res, next) {
+  if(!req.user){
+    res.redirect('/');
+  }
   // get all the users
   TeamDetail.find({}, function(err, teams) {
     if (err) throw err;
